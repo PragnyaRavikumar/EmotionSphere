@@ -48,16 +48,14 @@ Dataset
 The project uses the FER2013 dataset, which contains 35,887 labeled grayscale images of faces. Download the dataset from Kaggle.
 
 File structure:
-'''Facial-recognition-system/  
-│
-├── app.py             # Flask app
+Facial-recognition-system/
+├── app.py                    # Flask app
 ├── templates/
-│   └── index.html     # Frontend HTML
+│   └── index.html            # Frontend HTML
 ├── static/
-│   └── uploads/       # To save uploaded images
-├── fer_cnn_best_model.keras   # Your trained model
-└── requirements.txt   # Python dependencies'''
-
+│   └── uploads/              # To save uploaded images
+├── fer_cnn_best_model.keras  # Your trained model
+└── requirements.txt          # Python dependencies
 
    
 
