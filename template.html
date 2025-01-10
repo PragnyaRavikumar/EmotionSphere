@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div id="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- Header -->
+    <h1>Emotion Recognition System</h1>
+    <p id="slogan">"Let your emotions shape the world!"</p>
+
+    <!-- Upload Section -->
+    <div class="upload-container">
+        <label for="fileInput">Choose an Image</label>
+        <input type="file" id="fileInput" accept="image/*">
+        <div class="progress-bar" id="progressBar">
+            <span id="progress"></span>
+        </div>
+        <button id="uploadButton">Upload & Detect</button>
+    </div>
+
+    <!-- Recent Emotions Section -->
+    <div class="recent-emotions" id="recentEmotions">
+        <h2>Recently Detected Emotions</h2>
+        <div id="emotionList">
+            <!-- Example of Recent Emotions -->
+            <!-- Dynamically Populated -->
+        </div>
+    </div>
+
+    <!-- Fun Fact Section -->
+    <div class="fun-fact" id="funFact">
+        "Did you know? A smile is a universal sign of happiness!"
+    </div>
+
+    <!-- Output Section -->
+    <div id="output">
+        <img id="uploadedImage" src="#" alt="Uploaded Image" style="display: none;">
+        <div id="loadingSpinner" class="loader" style="display: none;"></div>
+        <p class="result" id="result"></p>
+    </div>
+
+    <script>
+        const slogans = [
+            '"Emotions shape connections."',
+            '"Let technology decode your feelings!"',
+            '"Discover the science behind every expression."',
+            '"AI meets empathy in real time."'
+        ];
+        
+        const funFacts = [
+            "A smile is a universal sign of happiness!",
+            "Humans can detect emotions in less than 1 second!",
+            "Emotions influence 80% of decision-making.",
+            "AI is now 90% accurate in reading facial emotions."
+        ];
+
+        const sloganElement = document.getElementById('slogan');
+        const funFactElement = document.getElementById('funFact');
+        const emotionList = document.getElementById('emotionList');
+
+        let sloganIndex = 0;
+        let factIndex = 0;
+
+        setInterval(() => {
+            sloganElement.textContent = slogans[sloganIndex];
+            sloganIndex = (sloganIndex + 1) % slogans.length;
+
+            funFactElement.textContent = funFacts[factIndex];
+            factIndex = (factIndex + 1) % funFacts.length;
+        }, 5000);
+
+        const uploadButton = document.getElementById('uploadButton');
+        const fileInput = document.getElementById('fileInput');
+        const progressBar = document.getElementById('progress');
+        const uploadedImage = document.getElementById('uploadedImage');
+        const resultDiv = document.getElementById('result');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        uploadButton.addEventListener('click', async () => {
+            if (!fileInput.files[0]) {
+                alert("Please choose an image to upload!");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            loadingSpinner.style.display = 'block';
+            uploadedImage.style.display = 'none';
+            resultDiv.textContent = '';
+
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+            loadingSpinner.style.display = 'none';
+
+            if (result.error) {
+                alert(result.error);
+            } else {
+                uploadedImage.src = `/uploads/${result.filename}`;
+                uploadedImage.style.display = 'block';
+
+                const emotionEmoji = {
+                    happy: '😊',
+                    sad: '😢',
+                    angry: '😡',
+                    surprised: '😲',
+                    neutral: '😐'
+                };
+
+                resultDiv.innerHTML = `
+                    ${emotionEmoji[result.emotion.toLowerCase()] || '❓'}
+                    Detected Emotion: ${result.emotion}
+                `;
+
+                progressBar.style.width = '100%';
+
+                const newEmotion = document.createElement('div');
+                newEmotion.classList.add('emotion-item');
+                newEmotion.innerHTML = `
+                    <span>${result.emotion}</span>
+                    <img src="/uploads/${result.filename}" alt="${result.emotion}">
+                `;
+                emotionList.prepend(newEmotion);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url('bg3.webp'); /* Ensure the correct image path */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #f8fafc;
+    text-align: center;
+    overflow-y: auto;
+    height: 100vh; /* Full viewport height */
+    position: relative;
+}
+
+/* Transparent Overlay with Adjusted Opacity */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Adjusted opacity for better text visibility */
+    z-index: -1; /* Keeps overlay behind content */
+}
+
+/* Header */
+h1 {
+    font-size: 3rem;
+    margin-top: 20px;
+    color: #f9fafb; /* Lighter text color for contrast */
+    text-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4); /* Subtle shadow for better legibility */
+    margin-bottom: 10px;
+}
+
+p#slogan {
+    font-size: 1.3rem;
+    margin-top: 10px;
+    font-style: italic;
+    color: #d1d5db; /* Soft light gray text */
+    margin-bottom: 20px;
+}
+
+/* Upload Section */
+.upload-container {
+    background: rgba(255, 255, 255, 0.2); /* Slight translucent background */
+    width: 90%;
+    max-width: 600px;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 10px 0;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-container input {
+    padding: 12px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.7); /* Lighter input field */
+    border: 1px solid #e2e8f0;
+    margin-bottom: 15px;
+}
+
+.upload-container button {
+    background-color: #38bdf8;
+    color: white;
+    font-size: 1.2rem;
+    padding: 12px 25px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-container button:hover {
+    background-color: #1e40af;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #e2e8f0;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    display: none;
+}
+
+.progress-bar span {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: #38bdf8;
+    border-radius: 5px;
+}
+
+/* Recent Emotions Panel */
+.recent-emotions {
+    background: rgba(255, 255, 255, 0.2); /* Slight translucent background */
+    width: 90%;
+    max-width: 600px;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 10px 0;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+    flex-grow: 1; /* Ensure the container grows to fill available space */
+}
+
+.recent-emotions h2 {
+    color: #f9fafb;
+    margin-bottom: 10px;
+}
+
+.emotion-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.emotion-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.emotion-item span {
+    font-size: 1rem;
+    color: #d1d5db; /* Light gray text */
+}
+
+/* Fun Fact Section */
+.fun-fact {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #f9fafb; /* Light text */
+    font-style: italic;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2); /* Slight translucent background */
+    border-radius: 10px;
+    max-width: 90%;
+    text-align: center;
+}
+
+/* Output Section */
+#output {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Ensure the uploaded image is fully visible and responsive */
+#uploadedImage {
+    width: 100%;
+    max-width: 500px;  /* Limit the size so it doesn't stretch too much */
+    height: auto;  /* Keep the aspect ratio intact */
+    object-fit: contain;  /* Ensure it doesn't get cropped */
+    border-radius: 10px;
+    margin-top: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Soft shadow around the image */
+    display: block;
+    margin-left: auto;
+    margin-right: auto; /* Center the image */
+}
+
+
+.loader {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #38bdf8;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin: 15px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .upload-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .recent-emotions, .fun-fact {
+        width: 100%;
+    }
+}
